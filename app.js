@@ -1,24 +1,21 @@
 "use strict";
 
-console.log("Movie App - DAG 2 starter...");
+const movies = [
+  {
+    title: "Inception",
+    year: 2010,
+    rating: 8.8,
+  },
+  {
+    title: "The Matrix",
+    year: 1999,
+    rating: 8.7,
+  },
+];
 
-
-const movies = ["Inception", "The Matrix", "Interstellar", "The Dark Knight", "Pulp Fiction", "Lord of the Rings", "The Revenant"];
-
-console.log("Antal film:", movies.length);
-
-
-const movieList = document.querySelector("#movie-list");
-console.log(movieList);
+console.log("Første film:", movies[0]);
+console.log("Anden film:", movies[1]);
 
 for (const movie of movies) {
-  const html =  `
-    <article class="movie-card">
-      <div class="movie-info">
-        <h3>${movie}</h3>
-      </div>
-    </article>
-  `;
-
-  movieList.insertAdjacentHTML("beforeend", html);
+  console.log("Titel:", movie.title);
 }
