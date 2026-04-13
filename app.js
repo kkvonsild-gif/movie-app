@@ -29,7 +29,15 @@ console.log("Alle film:", movies);
 const movieList = document.querySelector("#movie-list");
 console.log(movieList);
 
-for (const movie of movies) {
+function showMovies() {
+  movieList.innerHTML = "";
+
+  for (const movie of movies) {
+    showMovie(movie);
+  }
+}
+
+function showMovie(movie) {
   const html = /* html */ `
     <article class="movie-card">
       <div class="movie-info">
@@ -43,3 +51,12 @@ for (const movie of movies) {
   movieList.insertAdjacentHTML("beforeend", html);
 }
 
+showMovies();
+
+movies.push({
+  title: "Pulp Fiction",
+  year: 1994,
+  rating: 8.9,
+});
+
+showMovies();
