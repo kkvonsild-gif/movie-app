@@ -1,137 +1,90 @@
 "use strict";
 
-console.log("Movie App starter...");
 
-let movies = [
+
+/* EKSTRA - PERSONLISTE */
+
+const persons = [
   {
-    title: "Inception",
-    year: 2010,
-    rating: 8.8,
-    image: "https://m.media-amazon.com/images/M/MV5BMjExMjkwNTQ0Nl5BMl5BanBnXkFtZTcwNTY0OTk1Mw@@._V1_.jpg",
-    genre: "Sci-Fi",
+    id: "ZfPTVEMQKf9vhNiUh0bj",
+    image:
+      "https://www.baaa.dk/media/b5ahrlra/maria-louise-bendixen.jpg?anchor=center&mode=crop&width=800&height=450&rnd=132792921650330000&format=webp",
+    mail: "mlbe@eaaa.dk",
+    name: "Maria Louise Bendixen",
+    title: "Senior Lecturer",
   },
   {
-    title: "The Matrix",
-    year: 1999,
-    rating: 8.7,
-    image: "https://www.nfbio.dk/sites/nfbio.dk/files/movie-posters/HO00002239_103618.jpg",
-    genre: "Sci-Fi",
+    id: "fTs84KRoYw5pRZEWCq2Z",
+    image:
+      "https://www.eaaa.dk/media/mfcpsgy1/rasmus-cederdorf.jpg?width=800&height=450&v=1db97e246f73210",
+    mail: "race@eaaa.dk",
+    name: "Rasmus Cederdorff",
+    title: "Senior Lecturer",
   },
   {
-    title: "Interstellar",
-    year: 2014,
-    rating: 8.6,
-    image: "https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg",
-    genre: "Sci-Fi/Drama",
+    id: "gCs33KRoYg5pRZEWCq8J",
+    image:
+      "https://www.eaaa.dk/media/u4gorzsd/birgitte-kirk-iversen.jpg?width=800&height=450&v=1db9744144491d0",
+    mail: "bki@eaaa.dk",
+    name: "Birgitte Kirk Iversen",
+    title: "Senior Lecturer",
   },
   {
-    title: "The Dark Knight",
-    year: 2008,
-    rating: 9.0,
-    image: "https://m.media-amazon.com/images/I/91KkWf50SoL._AC_UF894,1000_QL80_.jpg",
-    genre: "Thriller/Action",
+    id: "fjpRTRTjZHwrq3tTLHri",
+    image:
+      "https://www.baaa.dk/media/5buh1xeo/anne-kirketerp.jpg?anchor=center&mode=crop&width=800&height=450&rnd=132792921531600000&format=webp",
+    mail: "anki@eaaa.dk",
+    name: "Anne Kirketerp",
+    title: "Head of Department",
   },
   {
-    title: "28 Years Later",
-    year: 2025,
-    rating: 6.6,
-    image: "https://m.media-amazon.com/images/I/91KkWf50SoL._AC_UF894,1000_QL80_.jpg",
-    genre: "Gyser/Thriller",
+    id: "pqzGY1MnHYm3I4Ca79Xn",
+    image:
+      "https://www.eaaa.dk/media/14qpfeq4/line-skjodt.jpg?width=800&height=450&rnd=133178433559770000",
+    mail: "lskj@eaaa.dk",
+    name: "Line Skjødt",
+    title: "Senior Lecturer & Internship Coordinator",
   },
   {
-    title: "Bugonia",
-    year: 2025,
-    rating: 7.4,
-    image: "https://www.nfbio.dk/sites/nfbio.dk/files/media-images/2025-09/gmnt-36b5e60d96-1529119-vst-68b6ee51afa34.jpeg",
-    genre: "Komedie/Sci-Fi",
+    id: "HlvRHr58C05guOLl64k5",
+    image:
+      "https://www.eaaa.dk/media/bdojel41/dan-okkels-brendstrup.jpg?anchor=center&mode=crop&width=800&height=450&rnd=132792921559630000&format=webp",
+    mail: "dob@eaaa.dk",
+    name: "Dan Okkels Brendstrup",
+    title: "Senior Lecturer",
   },
   {
-    title: "Sinners",
-    year: 2025,
-    rating: 7.5,
-    image: "https://m.media-amazon.com/images/M/MV5BNjIwZWY4ZDEtMmIxZS00NDA4LTg4ZGMtMzUwZTYyNzgxMzk5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-    genre: "Gyser/Action/Drama",
+    id: "MlvJJr83C55auHLl64s7",
+    image:
+      "https://www.eaaa.dk/media/oayjq02h/martin-n%C3%B8hr.jpg?width=800&height=450&v=1da8a5a7a84e370",
+    mail: "mnor@eaaa.dk",
+    name: "Martin Aagaard Nøhr",
+    title: "Lecturer",
   },
   {
-    title: "Oppenheimer",
-    year: 2023,
-    rating: 8.2,
-    image: "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Oppenheimer_%28film%29.jpg/250px-Oppenheimer_%28film%29.jpg",
-    genre: "Thriller",
-  },
-  {
-    title: "The Darjeeling Limited",
-    year: 2007,
-    rating: 7.2,
-    image: "https://m.media-amazon.com/images/M/MV5BZDY4Mzc2YTQtZDg4ZS00OGIzLWJhOGMtOTQ2OThmNzg4NTc4XkEyXkFqcGc@._V1_.jpg",
-    genre: "Drama/Komedie",
+    id: "NlvKKr84D66bvIMm75t8",
+    image:
+      "https://www.eaaa.dk/media/1yfflb3v/lars-boge-eskildsen.jpg?width=850&height=450&v=1dc16997f2dfd40",
+    mail: "laes@eaaa.dk",
+    name: "Lars Bøge Eskildsen",
+    title: "Senior Lecturer",
   },
 ];
 
-const movieList = document.querySelector("#movie-list");
+const personList = document.querySelector("#person-list");
 
-start();
+function showPersons(person) {
+  /* Tømmer containeren personList */
+  personList.innerHTML = "";
 
-async function start() {
-  console.log("Henter film data...");
-
-  const response = await fetch("https://raw.githubusercontent.com/cederdorff/race/refs/heads/master/data/movies.json");
-  movies = await response.json();
-
-  console.log("Hentet", movies.length, "film!");
-  showMovies();
-}
-
-
-/* showMovies() nulstiller listen og styrer hele flowet (loop gennem alle film) */
-function showMovies() {
-  movieList.innerHTML = "";
-
-  for (const movie of movies) {
-    showMovie(movie);
+  for (const person of persons) {
+    console.log(person); /* Tjekker om den kalder rigtigt? */
   }
+  showPerson(person);
 }
 
-/* showMovie(movie) renderer ét movie-card ad gangen */
-function showMovie(movie) {
-  const highlightClass = movie.rating > 8.5 ? "movie-card--highlight" : "";
+showPersons();
 
-  const html = /* html */ `
-    <article class="movie-card ${highlightClass}">
-      <img class="movie-image" src="${movie.image}" alt="${movie.title}">
-      <div class="movie-info">
-        <h3>${movie.title}</h3>
-        <p>År: ${movie.year}</p>
-        <p>Rating: ${movie.rating}</p>
-        <p>Genre: ${movie.genre}</p>
-      </div>
-    </article>
-  `;
+function showPerson(person) {
 
-  movieList.insertAdjacentHTML("beforeend", html);
 }
-
-movies.push({
-  title: "Pulp Fiction",
-  year: 1994,
-  rating: 8.9,
-  image: "https://img-cdn.sfanytime.com/COVERM/99a66254-3e74-4698-b9fb-9f81010f5574_COVERM_01.jpg?ar=0.692&fit=crop&fm=pjpg&w=415&s=3ad3ed97886ec9bbd7458d0bb74b25ce",
-  genre: "Komedie/Action/Thriller",
-});
-
-showMovies();
-
-/* Funktion der tilføjer nye film */
-function addMovie(movie) {
-  movies.push(movie);
-  showMovies();
-}
-
-addMovie({
-  title: "Blade Runner 2049",
-  year: 2017,
-  rating: 8.0,
-  image: "https://m.media-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_.jpg",
-  genre: "Sci-fi",
-});
-
