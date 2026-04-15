@@ -1,4 +1,5 @@
 "use strict";
+
 console.log("Movie App starter...");
 
 const movies = [
@@ -24,20 +25,11 @@ const movies = [
   },
 ];
 
-console.log("Alle film:", movies);
-
 const movieList = document.querySelector("#movie-list");
-console.log(movieList);
 
-function showMovies() {
-  movieList.innerHTML = "";
 
-  for (const movie of movies) {
-    showMovie(movie);
-  }
-}
 
-function showMovie(movie) {
+for (const movie of movies) {
   const html = /* html */ `
     <article class="movie-card">
       <div class="movie-info">
@@ -50,13 +42,3 @@ function showMovie(movie) {
 
   movieList.insertAdjacentHTML("beforeend", html);
 }
-
-showMovies();
-
-movies.push({
-  title: "Pulp Fiction",
-  year: 1994,
-  rating: 8.9,
-});
-
-showMovies();
