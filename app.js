@@ -1,89 +1,52 @@
 "use strict";
 
-console.log("Movie App starter...");
-
-let movies = [
+const movies = [
   {
     title: "Inception",
     year: 2010,
     rating: 8.8,
-    image: "https://m.media-amazon.com/images/M/MV5BMjExMjkwNTQ0Nl5BMl5BanBnXkFtZTcwNTY0OTk1Mw@@._V1_.jpg",
-    genre: "Sci-Fi",
+    image:
+      "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg",
   },
   {
     title: "The Matrix",
     year: 1999,
     rating: 8.7,
-    image: "https://www.nfbio.dk/sites/nfbio.dk/files/movie-posters/HO00002239_103618.jpg",
-    genre: "Sci-Fi",
-  },
-  {
-    title: "Interstellar",
-    year: 2014,
-    rating: 8.6,
-    image: "https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg",
-    genre: "Sci-Fi/Drama",
+    image: "https://m.media-amazon.com/images/I/51EG732BV3L.jpg",
   },
   {
     title: "The Dark Knight",
     year: 2008,
     rating: 9.0,
-    image: "https://m.media-amazon.com/images/I/91KkWf50SoL._AC_UF894,1000_QL80_.jpg",
-    genre: "Thriller/Action",
+    image:
+      "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg",
   },
   {
-    title: "28 Years Later",
-    year: 2025,
-    rating: 6.6,
-    image: "https://m.media-amazon.com/images/I/91KkWf50SoL._AC_UF894,1000_QL80_.jpg",
-    genre: "Gyser/Thriller",
-  },
-  {
-    title: "Bugonia",
-    year: 2025,
-    rating: 7.4,
-    image: "https://www.nfbio.dk/sites/nfbio.dk/files/media-images/2025-09/gmnt-36b5e60d96-1529119-vst-68b6ee51afa34.jpeg",
-    genre: "Komedie/Sci-Fi",
-  },
-  {
-    title: "Sinners",
-    year: 2025,
-    rating: 7.5,
-    image: "https://m.media-amazon.com/images/M/MV5BNjIwZWY4ZDEtMmIxZS00NDA4LTg4ZGMtMzUwZTYyNzgxMzk5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-    genre: "Gyser/Action/Drama",
+    title: "The Shawshank Redemption",
+    year: 1994,
+    rating: 9.3,
+    image: "https://m.media-amazon.com/images/I/51NiGlapXlL._AC_.jpg",
   },
   {
     title: "Oppenheimer",
     year: 2023,
-    rating: 8.2,
-    image: "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Oppenheimer_%28film%29.jpg/250px-Oppenheimer_%28film%29.jpg",
-    genre: "Thriller",
+    rating: 8.4,
+    image:
+      "https://m.media-amazon.com/images/M/MV5BN2JkMDc5MGQtZjg3YS00NmFiLWIyZmQtZTJmNTM5MjVmYTQ4XkEyXkFqcGc@._V1_.jpg",
   },
   {
-    title: "The Darjeeling Limited",
-    year: 2007,
-    rating: 7.2,
-    image: "https://m.media-amazon.com/images/M/MV5BZDY4Mzc2YTQtZDg4ZS00OGIzLWJhOGMtOTQ2OThmNzg4NTc4XkEyXkFqcGc@._V1_.jpg",
-    genre: "Drama/Komedie",
+    title: "Dune",
+    year: 2021,
+    rating: 8.0,
+    image:
+      "https://upload.wikimedia.org/wikipedia/en/8/8e/Dune_%282021_film%29.jpg",
   },
 ];
 
 const movieList = document.querySelector("#movie-list");
 
-start();
+showMovies();
 
-async function start() {
-  console.log("Henter film data...");
-
-  const response = await fetch("https://raw.githubusercontent.com/cederdorff/race/refs/heads/master/data/movies.json");
-  movies = await response.json();
-
-  console.log("Hentet", movies.length, "film!");
-  showMovies();
-}
-
-
-/* showMovies() nulstiller listen og styrer hele flowet (loop gennem alle film) */
 function showMovies() {
   movieList.innerHTML = "";
 
@@ -92,46 +55,18 @@ function showMovies() {
   }
 }
 
-/* showMovie(movie) renderer ét movie-card ad gangen */
 function showMovie(movie) {
-  const highlightClass = movie.rating > 8.5 ? "movie-card--highlight" : "";
-
   const html = /* html */ `
-    <article class="movie-card ${highlightClass}">
+    <article class="movie-card">
       <img class="movie-image" src="${movie.image}" alt="${movie.title}">
       <div class="movie-info">
         <h3>${movie.title}</h3>
         <p>År: ${movie.year}</p>
         <p>Rating: ${movie.rating}</p>
-        <p>Genre: ${movie.genre}</p>
       </div>
     </article>
   `;
 
   movieList.insertAdjacentHTML("beforeend", html);
 }
-
-movies.push({
-  title: "Pulp Fiction",
-  year: 1994,
-  rating: 8.9,
-  image: "https://img-cdn.sfanytime.com/COVERM/99a66254-3e74-4698-b9fb-9f81010f5574_COVERM_01.jpg?ar=0.692&fit=crop&fm=pjpg&w=415&s=3ad3ed97886ec9bbd7458d0bb74b25ce",
-  genre: "Komedie/Action/Thriller",
-});
-
-showMovies();
-
-/* Funktion der tilføjer nye film */
-function addMovie(movie) {
-  movies.push(movie);
-  showMovies();
-}
-
-addMovie({
-  title: "Blade Runner 2049",
-  year: 2017,
-  rating: 8.0,
-  image: "https://m.media-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_.jpg",
-  genre: "Sci-fi",
-});
 
