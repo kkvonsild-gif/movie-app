@@ -10,6 +10,9 @@ const searchInput = document.querySelector("#search-input");
 const sortSelect = document.querySelector("#sort-select");
 const movieCount = document.querySelector("#movie-count");
 
+
+
+
 fetchMovies();
 
 async function fetchMovies() {  
@@ -19,6 +22,10 @@ async function fetchMovies() {
   populateGenreSelect();
   applyFiltersAndSort();
 }
+
+
+
+
 
 function populateGenreSelect() {
   const genres = new Set();
@@ -38,6 +45,8 @@ function populateGenreSelect() {
     );
   }
 }
+
+
 
 
 function applyFiltersAndSort() {
@@ -71,6 +80,8 @@ function applyFiltersAndSort() {
 }
 
 
+
+
 function showMovies(movies) {
   movieList.innerHTML = "";
   movieCount.textContent = `Viser ${movies.length} ud af ${allMovies.length} film`;
@@ -86,24 +97,63 @@ function showMovies(movies) {
   }
 }
 
+
+
+
 function showMovie(movie) {
   const html = /* html */ `
-    <article class="movie-card">
-      <img class="movie-image" src="${movie.image}" alt="${movie.title}">
+    <article class="movie-card" tabindex="0">
+      <img src="${movie.image}" alt="Poster af ${movie.title}" class="movie-poster" />
       <div class="movie-info">
-      <h3>${formatMovieTitle(movie.title, movie.year)}</h3>
-      <p>Rating: ${movie.rating}</p>
+        <div class="title-row">
+          <h2>${movie.title}</h2>
+          <span class="year-badge">(${movie.year})</span>
+        </div>
+        <p class="genre">${movie.genre.join(", ")}</p>
+        <p class="movie-rating">⭐ ${movie.rating}</p>
+        <p class="director-line"><strong>Instruktør:</strong> ${movie.director}</p>
       </div>
     </article>
   `;
 
   movieList.insertAdjacentHTML("beforeend", html);
-};
+
+  const newCard = movieList.lastElementChild;
+  newCard.addEventListener("click", function () {
+    showMovieDialog(movie);
+  });
+  newCard.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    showMovieDialog(movie);
+  }
+  });
+}
+
+
+
+
+function showMovieDialog(movie) {
+  const dialog = document.querySelector("#movie-dialog");
+  const dialogContent = document.querySelector("#dialog-content");
+
+  dialogContent.innerHTML = /* html */ `
+    <img src="${movie.image}" alt="Poster af ${movie.title}" class="movie-poster">
+    <div class="dialog-details">
+      <h2>${movie.title} <span class="movie-year">(${movie.year})</span></h2>
+      <p class="movie-genre">${movie.genre.join(", ")}</p>
+      <p class="movie-rating">⭐ ${movie.rating}</p>
+      <p><strong>Instruktør:</strong> ${movie.director}</p>
+      <p><strong>Skuespillere:</strong> ${movie.actors.join(", ")}</p>
+      <p class="movie-description">${movie.description}</p>
+    </div>
+  `;
+
+  dialog.showModal();
+}
+
+
 
 genreSelect.addEventListener("change", applyFiltersAndSort);
 searchInput.addEventListener("input", applyFiltersAndSort);
 sortSelect.addEventListener("change", applyFiltersAndSort);
 
-function formatMovieTitle(title, year) {
-  return `${title} (${year})`;
-};
