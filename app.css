@@ -119,8 +119,8 @@ main {
 
 .controls {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 1rem;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 0.8rem;
 }
 
 .control-group {
@@ -132,4 +132,24 @@ main {
 .control-group input,
 .control-group select {
   width: 100%;
+}
+
+@media (max-width: 900px) {
+  .controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+.status-bar {
+  margin: 0.8rem 0;
+}
+
+#movie-count {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.empty {
+  text-align: center;
+  padding: 1rem;
+  border-radius: 10px;
 }

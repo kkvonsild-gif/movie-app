@@ -1,13 +1,13 @@
 "use strict";
 
-console.log("Movie App starter...");
-
 const MOVIES_URL =
   "https://raw.githubusercontent.com/cederdorff/race/refs/heads/master/data/movies.json";
 let allMovies = [];
+
 const movieList = document.querySelector("#movie-list");
 const genreSelect = document.querySelector("#genre-select");
 const searchInput = document.querySelector("#search-input");
+const sortSelect = document.querySelector("#sort-select");
 const movieCount = document.querySelector("#movie-count");
 
 fetchMovies();
@@ -17,16 +17,11 @@ async function fetchMovies() {
   allMovies = await response.json();
 
   populateGenreSelect();
-  showMovies(allMovies);
-
-  genreSelect.addEventListener("change", applyFilters);
-  searchInput.addEventListener("input", applyFilters);
+  applyFiltersAndSort();
 }
 
-
-// FILTRERING AF GENRER
 function populateGenreSelect() {
-  const genres = new Set(); // Set er en datatype hvor der kun kan være én af hver slags
+  const genres = new Set();
 
   for (const movie of allMovies) {
     for (const genre of movie.genre) {
@@ -45,11 +40,12 @@ function populateGenreSelect() {
 }
 
 
-function applyFilters() {
+function applyFiltersAndSort() {
   const selectedGenre = genreSelect.value;
   const searchValue = searchInput.value.trim().toLowerCase();
+  const sortOption = sortSelect.value;
 
-  const filteredMovies = allMovies.filter(function (movie) {
+  let filteredMovies = allMovies.filter(function (movie) {
     const matchesGenre =
       selectedGenre === "all" || movie.genre.includes(selectedGenre);
     const matchesSearch = movie.title.toLowerCase().includes(searchValue);
@@ -57,19 +53,38 @@ function applyFilters() {
     return matchesGenre && matchesSearch;
   });
 
+  if (sortOption === "title") {
+    filteredMovies.sort(function (movieA, movieB) {
+      return movieA.title.localeCompare(movieB.title);
+    });
+  } else if (sortOption === "year") {
+    filteredMovies.sort(function (movieA, movieB) {
+      return movieB.year - movieA.year;
+    });
+  } else if (sortOption === "rating") {
+    filteredMovies.sort(function (movieA, movieB) {
+      return movieB.rating - movieA.rating;
+    });
+  }
+
   showMovies(filteredMovies);
 }
 
 
 function showMovies(movies) {
   movieList.innerHTML = "";
+  movieCount.textContent = `Viser ${movies.length} ud af ${allMovies.length} film`;
+
+  if (movies.length === 0) {
+    movieList.innerHTML =
+      '<p class="empty">Ingen film matcher din søgning eller genre.</p>';
+    return;
+  }
 
   for (const movie of movies) {
     showMovie(movie);
   }
-
-  movieCount.textContent = `Viser ${movies.length} film`;
-};
+}
 
 function showMovie(movie) {
   const html = /* html */ `
@@ -84,6 +99,10 @@ function showMovie(movie) {
 
   movieList.insertAdjacentHTML("beforeend", html);
 };
+
+genreSelect.addEventListener("change", applyFiltersAndSort);
+searchInput.addEventListener("input", applyFiltersAndSort);
+sortSelect.addEventListener("change", applyFiltersAndSort);
 
 function formatMovieTitle(title, year) {
   return `${title} (${year})`;
